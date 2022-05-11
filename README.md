@@ -6,7 +6,7 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
 If you'd like, you can Learn more about the following before proceeding:
 - [brew](https://brew.sh/) - Missing package manager for Mac (also supports Linux)
 - [docker](https://www.docker.com/get-started/) - Containerization tooling :)
-- [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](meme/peridot.png) we use to scale containers :3
+- [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster
 - [helm](https://helm.sh/docs/intro/quickstart/) - This is a package manager for kube apps (mostly a bunch of k8s yamls)
 - [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps (4.6.0)
@@ -65,7 +65,7 @@ local-path-storage   Active   27m
 Now that we've verified we have a local k8s cluster, let's get argo up and running!
 
 ## Installing ArgoCD
-First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. You can update your `version` parameter in `charts/argo/Chart.yaml` to the `version` param you see in [this repo](https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/Chart.yaml), at whatever time in the future that you're working on this.
+First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. You can update your `version` parameter in `charts/argo/Chart.yaml` to the `version` param you see in [this repo](https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/Chart.yaml), at whatever time in the future that you're working on this. If you don't verify that version you will end up like me, half way down this article... :facepalm:
 
 Then you can run the following helm commands:
 
@@ -82,7 +82,13 @@ Downloading argo-cd from repo https://argoproj.github.io/argo-helm
 Deleting outdated charts
 ```
 
-And finally, here's the actual installation:
+### Detour to get error and fix error
+You don't have to follow this section if you don't get this error:
+```bash
+ manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
+```
+
+Here's the actual installation:
 ```bash
 $ helm install argo-cd charts/argo/
 manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
@@ -122,11 +128,46 @@ E0511 11:07:43.095553   46063 portforward.go:234] lost connection to pod
 Handling connection for 8080
 E0511 11:07:43.096354   46063 portforward.go:346] error creating error stream for port 8080 -> 8080: EOF
 ```
-And then it crashes, so what to do next? The answer is, apparently that [thing we ignored before](https://github.com/bitnami/charts/issues/7972) was important, but who knows why it didn't install :shrug: (It's probably explain in [this issue](https://github.com/helm/helm/issues/6930)?)
 
+And then it crashes, so what to do next? The answer is, apparently that [thing we ignored before](https://github.com/bitnami/charts/issues/7972) was important, but who knows why it didn't install :shrug: (It's [this issue](https://github.com/helm/helm/issues/6930))
 
+The solution is to up the `version` of your `charts/argo/Chart.yaml` to at least 4.6.0 (cause that's what worked for me :D)
+
+Then you'll need to rerun the dep update:
+
+```bash
+helm dep update charts/argo/
+```
+
+Followed by uninstalling and then reinstalling:
+```bash
+$ helm uninstall argo-cd
+release "argo-cd" uninstalled
+```
+
+### Resume here after detour
+
+Now, for the perfect installation of our dreams:
+```bash
+$ helm install argo-cd charts/argo/
+NAME: argo-cd
+LAST DEPLOYED: Wed May 11 14:52:59 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+```
+:chefs-kiss:
 
 # When ArgoCD finally works...
+Try this:
+```bash
+$ kubectl port-forward svc/argo-cd-argocd-server 8080:443
+```
+
+AND SUCCESS, we now get this in the browser:
+<img src="media/argo_screenshot_2022-05-11_15.36.20.png)" alt="Screenshot of the self-hosted-k8s ArgoCD login page in firefox"/>
+
 The default username is admin. The password is auto-generated and we can get it with:
 ```bash
 kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
@@ -134,3 +175,7 @@ kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | 
 
 Special thanks to:
 - This article helped a bit, but was out of date, so there's quite a few corrections in my readme here: https://www.arthurkoziel.com/setting-up-argocd-with-helm/
+
+## BUT WHAT ABOUT KAFKA?!
+
+Glad you asked, I'm working on it.
