@@ -1,4 +1,6 @@
 # Kubernetes, GitOps, and Kafka, OH MY!
+I'm writing this in mid-May 2022, and I make no promises for people trying to ressurect the past, or proceed in the future. If it's not mid-May 2022, ymmv.
+
 Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart :)
 
 If you'd like, you can Learn more about the following before proceeding:
@@ -118,9 +120,11 @@ E0511 11:07:43.095553   46063 portforward.go:234] lost connection to pod
 Handling connection for 8080
 E0511 11:07:43.096354   46063 portforward.go:346] error creating error stream for port 8080 -> 8080: EOF
 ```
+And then it crashes, so what to do next? The answer is, apparently that [thing we ignored before](https://github.com/bitnami/charts/issues/7972) was important, but who knows why it didn't install :shrug: (It's probably explain in [this issue](https://github.com/helm/helm/issues/6930)?)
 
-And then it crashes, so what to do next? The answer is, I don't know. I'm fixing it now...
 
+
+# When ArgoCD finally works...
 The default username is admin. The password is auto-generated and we can get it with:
 ```bash
 kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
