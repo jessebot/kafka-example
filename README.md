@@ -1,11 +1,9 @@
 # Kubernetes, ArgoCD, and Kafka
-I'm writing this in mid-May 2022, and I make no promises for people trying to ressurect the past, or proceed in the future. If it's not mid-May 2022, ymmv.
-
-Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart :)
+Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart :) I'm writing this in mid-May 2022, and I make no promises for people trying to do legacy work, or proceed in the future. If it's not mid-May 2022, ymmv.
 
 If you'd like, you can Learn more about the following before proceeding:
 - [brew](https://brew.sh/) - Missing package manager for Mac (also supports Linux)
-- [docker](https://www.docker.com/get-started/) - Containerization tooling :)
+- [docker](https://www.docker.com/get-started/) - Containerization tooling
 - [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster
 - [helm](https://helm.sh/docs/intro/quickstart/) - This is a package manager for kube apps (mostly a bunch of k8s yamls)
