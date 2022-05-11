@@ -7,8 +7,8 @@ If you'd like, you can Learn more about the following before proceeding:
 - [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster
 - [helm](https://helm.sh/docs/intro/quickstart/) - This is a package manager for kube apps (mostly a bunch of k8s yamls)
-- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps (4.6.0)
-- [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
+- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps (4.6.0) (We'll install this on the cluster, but you'll need the CLI tool locally)
+- [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale (We'll install this together)
 
 ## Installation of quick k8s cluster (KIND)
 You can install docker, kubernetes, kind, and helm with brew on Mac or Linux :D Check the links in the above section to learn more.
@@ -20,6 +20,7 @@ brew install kubernetes
 brew install kubectl
 brew install kind
 brew install helm
+brew install argocd
 ```
 
 ### apt (On Debian/Ubuntu)
