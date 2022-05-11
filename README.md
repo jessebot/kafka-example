@@ -13,7 +13,7 @@ If you'd like, you can Learn more about the following before proceeding:
 ## Installation of quick k8s cluster (KIND)
 You can install docker, kubernetes, kind, and helm with brew on Mac or Linux :D Check the links in the above section to learn more.
 
-brew (On MacOS/Linux):
+### brew (On MacOS/Linux)
 ```bash
 brew install docker
 brew install kubernetes
@@ -22,8 +22,7 @@ brew install kind
 brew install helm
 ```
 
-
-apt (On Debian/Ubuntu):
+### apt (On Debian/Ubuntu)
 ```zsh
 # install docker/kubectl deps
 sudo apt-get -y install \
@@ -181,7 +180,6 @@ release "argo-cd" uninstalled
 ```
 
 ### Resume here after CRD issue detour
-
 Now, for the perfect installation of our dreams:
 ```bash
 $ helm install argo-cd charts/argo/
@@ -216,4 +214,38 @@ kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | 
 ```
 
 ## Getting Started with Kafka
-Glad you asked, I'm working on it. First stop is helm B)
+Kafka will also be installed via helm, but this time with Argo. You'll want to have a git repo for kafka for this next part. In this case, I'm using this repo, but only to keep this managable as a tutorial.
+
+Add the Bitnami helm repo:
+```
+$ helm repo add bitnami https://charts.bitnami.com/bitnami
+```
+
+Make sure you have the `charts/kafka/Chart.yaml` for this next part. Then update your chart:
+```
+$ helm dep update charts/kafka/
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "bitnami" chart repository
+Update Complete. ⎈Happy Helming!⎈
+Saving 1 charts
+Downloading kafka from repo https://charts.bitnami.com/bitnami
+Deleting outdated charts
+```
+
+That should put you to the point where you can now push this repo, and have argo sync it.
+
+## Prepare kafka repo
+For sake of simplicity and future automation, you can use the [github cli](https://cli.github.com/) to create a repo:
+```
+$ gh repo create argo-and-kafka-example
+```
+
+After it's created, since it's going to be public, we can connect to the repo using HTTPS, but if you plan on doing this with a private repo, you'll need to generate an SSH key pair to use as a deploy key in Github.
+
+## Add kafka to ArgoCD
+
+### GUI
+Will fill this in later
+
+### CLI
+
