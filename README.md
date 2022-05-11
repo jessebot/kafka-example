@@ -129,13 +129,15 @@ Downloading argo-cd from repo https://argoproj.github.io/argo-helm
 Deleting outdated charts
 ```
 
-### Detour to get error and fix error
-You don't have to follow this section if you don't get this error:
+The next thing you need to do do is install the chart with:
+
 ```bash
- manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
+$ helm install argo-cd charts/argo/
 ```
 
-Here's the actual installation:
+### How to fix crd-install issue (Skip if no issue on `helm install`)
+*Why and How*
+You would see this:
 ```bash
 $ helm install argo-cd charts/argo/
 manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
@@ -148,51 +150,39 @@ REVISION: 1
 TEST SUITE: None
 ```
 
-(We do wonder about that `manifest_sorter.go` :thinking: ... but we choose to ignore it for RIGHT now :shrug:)
-
-Then you should have ArgoCD on your Kind cluster :D So, from here, we can check out the Argo frontend...
-
-You may think the next thing to do is...
-
-The Helm chart doesn’t install an Ingress by default, to access the Web UI we have to port-forward to the argocd-server service:
+You need those CRDs, or the pod will just crash loop, and then when you try to follow the next logical step of port-forwarding to test the frontend, you'll get something like this, when you actually test it:
 ```bash
 $ kubectl port-forward svc/argo-cd-argocd-server 8080:443
 Forwarding from 127.0.0.1:8080 -> 8080
 Forwarding from [::1]:8080 -> 8080
 Handling connection for 8080
 ```
-We can then visit http://localhost:8080 to acces-*BUT YOU WOULD BE WRONG*
 
-Because as soon as you visit http://localhost:8080 your terminal will say:
-
-```bash
-$ kubectl port-forward svc/argo-cd-argocd-server 8080:443
-Forwarding from 127.0.0.1:8080 -> 8080
-Forwarding from [::1]:8080 -> 8080
-Handling connection for 8080
+Which seems fine, but when you go to http://localhost:8080 in your browser you'll see this in stdout in your terminal:
+```
 E0511 11:07:43.094956   46063 portforward.go:406] an error occurred forwarding 8080 -> 8080: error forwarding port 8080 to pod 53c2b12a3c748bb2c9acd763ed898c5261227ca4b359c047ec264608cbc67058, uid : failed to execute portforward in network namespace "/var/run/netns/cni-84865981-c6a2-6e6d-1ce1-336602591e41": failed to connect to localhost:8080 inside namespace "53c2b12a3c748bb2c9acd763ed898c5261227ca4b359c047ec264608cbc67058", IPv4: dial tcp4 127.0.0.1:8080: connect: connection refused IPv6 dial tcp6 [::1]:8080: connect: connection refused
 E0511 11:07:43.095553   46063 portforward.go:234] lost connection to pod
 Handling connection for 8080
 E0511 11:07:43.096354   46063 portforward.go:346] error creating error stream for port 8080 -> 8080: EOF
 ```
 
-And then it crashes, so what to do next? The answer is, apparently that [thing we ignored before](https://github.com/bitnami/charts/issues/7972) was important, but who knows why it didn't install :shrug: (It's [this issue](https://github.com/helm/helm/issues/6930))
+This happens because you're using an older version of argoCD, and is apparently because of [this issue](https://github.com/bitnami/charts/issues/7972) and is fixed by [this](https://github.com/helm/helm/issues/6930), so you can just update your version.
 
-The solution is to up the `version` of your `charts/argo/Chart.yaml` to at least 4.6.0 (cause that's what worked for me :D)
+*Fix*
+Update `version` of your `charts/argo/Chart.yaml` to at least 4.6.0 (cause that's what worked for me :D)
 
 Then you'll need to rerun the dep update:
-
 ```bash
 helm dep update charts/argo/
 ```
 
-Followed by uninstalling and then reinstalling:
+Followed by uninstalling, and then reinstalling:
 ```bash
 $ helm uninstall argo-cd
 release "argo-cd" uninstalled
 ```
 
-### Resume here after error detour
+### Resume here after CRD issue detour
 
 Now, for the perfect installation of our dreams:
 ```bash
@@ -204,10 +194,9 @@ STATUS: deployed
 REVISION: 1
 TEST SUITE: None
 ```
-:chefs-kiss:
+:chef-kiss:
 
-# When ArgoCD finally installs...
-
+## Argo via the GUI
 You'll need to test out the front end, but before you can do that, you need to do some port forwarding:
 ```bash
 $ kubectl port-forward svc/argo-cd-argocd-server 8080:443
