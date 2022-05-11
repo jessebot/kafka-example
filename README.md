@@ -4,7 +4,7 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
 If you'd like, you can Learn more about the following before proceeding:
 - [brew](https://brew.sh/) - Missing package manager for Mac (also supports Linux)
 - [docker](https://www.docker.com/get-started/) - Containerization tooling :)
-- [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](memes/peridot.png) we use to scale containers :3
+- [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](meme/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster
 - [helm](https://helm.sh/docs/intro/quickstart/) - This is a package manager for kube apps (mostly a bunch of k8s yamls)
 - [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps
