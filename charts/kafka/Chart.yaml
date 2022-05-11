@@ -1,0 +1,11 @@
+annotations:
+  category: Infrastructure
+apiVersion: v2
+appVersion: 3.1.0
+version: 16.2.11
+name: kafka
+description: Apache Kafka is a distributed streaming platform designed to build real-time pipelines and can be used as a message broker or as a replacement for a log aggregation solution for big data applications.
+dependencies:
+  - name: kafka
+    version: 16.2.11
+    repository: https://github.com/bitnami/charts/tree/master/bitnami/kafka
