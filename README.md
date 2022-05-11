@@ -9,7 +9,7 @@ If you'd like, you can Learn more about the following before proceeding:
 - [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](meme/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster
 - [helm](https://helm.sh/docs/intro/quickstart/) - This is a package manager for kube apps (mostly a bunch of k8s yamls)
-- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps
+- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps (4.6.0)
 - [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
 
 ## Installation of quick k8s cluster (KIND)
@@ -65,7 +65,9 @@ local-path-storage   Active   27m
 Now that we've verified we have a local k8s cluster, let's get argo up and running!
 
 ## Installing ArgoCD
-First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. Then you can run the following helm commands:
+First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. You can update your `version` parameter in `charts/argo/Chart.yaml` to the `version` param you see in [this repo](https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/Chart.yaml), at whatever time in the future that you're working on this.
+
+Then you can run the following helm commands:
 
 ```bash
 $ helm repo add argo https://argoproj.github.io/argo-helm
