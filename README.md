@@ -15,12 +15,59 @@ If you'd like, you can Learn more about the following before proceeding:
 ## Installation of quick k8s cluster (KIND)
 You can install docker, kubernetes, kind, and helm with brew on Mac or Linux :D Check the links in the above section to learn more.
 
+Brew:
+
 ```bash
 brew install docker
 brew install kubernetes
 brew install kubectl
 brew install kind
 brew install helm
+```
+Apt/Ubuntu:
+
+
+```zsh
+# install docker/kubectl deps
+sudo apt-get -y install \
+	apt-transport-https \
+	ca-certificates \
+	curl \
+	gnupg-agent \
+	software-properties-common
+
+# download the gpg keys we need 
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+curl https://baltocdn.com/helm/signing.asc | sudo apt-key add -
+
+# Add the repositories 
+# Docker requires the appropriate ubuntu flavor for docker, in this case "focal".
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+echo "deb https://baltocdn.com/helm/stable/debian/ all main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
+
+# update the package cache 
+sudo apt-get -y update
+
+# actually install something :D
+sudo apt-get -y install \
+	docker-ce \
+	docker-ce-cli \
+	containerd.io \
+	kubectl \
+	helm
+
+# create a group for docker, and add the user to it for sudoless docker
+sudo apt-get -y update
+groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+
+#install KIND
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.13.0/kind-linux-amd64
+chmod +x ./kind
+mv ./kind /usr/bin/kind
 ```
 
 Then you can create a quick small cluster with the below command. It will create a cluster called kind, and it will have one node, but it will be fast, like no more than a few minutes. 
@@ -65,6 +112,7 @@ local-path-storage   Active   27m
 Now that we've verified we have a local k8s cluster, let's get argo up and running!
 
 ## Installing ArgoCD
+
 First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. You can update your `version` parameter in `charts/argo/Chart.yaml` to the `version` param you see in [this repo](https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/Chart.yaml), at whatever time in the future that you're working on this. If you don't verify that version you will end up like me, half way down this article... :facepalm:
 
 Then you can run the following helm commands:
