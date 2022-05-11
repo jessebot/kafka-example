@@ -84,5 +84,38 @@ TEST SUITE: None
 
 Then you should have ArgoCD on your Kind cluster :D So, from here, we can check out the Argo frontend...
 
+You may think the next thing to do is:
+The Helm chart doesn’t install an Ingress by default, to access the Web UI we have to port-forward to the argocd-server service:
+
+```bash
+$ kubectl port-forward svc/argo-cd-argocd-server 8080:443
+Forwarding from 127.0.0.1:8080 -> 8080
+Forwarding from [::1]:8080 -> 8080
+Handling connection for 8080
+```
+We can then visit http://localhost:8080 to access it.
+
+*BUT YOU WOULD BE WRONG*
+
+Because as soon as you visit http://localhost:8080 your terminal will say:
+
+```bash
+$ kubectl port-forward svc/argo-cd-argocd-server 8080:443
+Forwarding from 127.0.0.1:8080 -> 8080
+Forwarding from [::1]:8080 -> 8080
+Handling connection for 8080
+E0511 11:07:43.094956   46063 portforward.go:406] an error occurred forwarding 8080 -> 8080: error forwarding port 8080 to pod 53c2b12a3c748bb2c9acd763ed898c5261227ca4b359c047ec264608cbc67058, uid : failed to execute portforward in network namespace "/var/run/netns/cni-84865981-c6a2-6e6d-1ce1-336602591e41": failed to connect to localhost:8080 inside namespace "53c2b12a3c748bb2c9acd763ed898c5261227ca4b359c047ec264608cbc67058", IPv4: dial tcp4 127.0.0.1:8080: connect: connection refused IPv6 dial tcp6 [::1]:8080: connect: connection refused
+E0511 11:07:43.095553   46063 portforward.go:234] lost connection to pod
+Handling connection for 8080
+E0511 11:07:43.096354   46063 portforward.go:346] error creating error stream for port 8080 -> 8080: EOF
+```
+
+And then it crashes, so what to do next? The answer is, I don't know. I'm fixing it now...
+
+The default username is admin. The password is auto-generated and we can get it with:
+```bash
+kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
 Special thanks to:
-- https://www.arthurkoziel.com/setting-up-argocd-with-helm/
+- This article helped a bit, but was out of date, so there's quite a few corrections in my readme here: https://www.arthurkoziel.com/setting-up-argocd-with-helm/
