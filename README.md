@@ -80,6 +80,7 @@ Deleting outdated charts
 
 And finally, here's the actual installation:
 ```bash
+$ helm install argo-cd charts/argo/
 manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
 manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
 NAME: argo-cd
@@ -94,7 +95,8 @@ TEST SUITE: None
 
 Then you should have ArgoCD on your Kind cluster :D So, from here, we can check out the Argo frontend...
 
-You may think the next thing to do is:
+You may think the next thing to do is...
+
 The Helm chart doesn’t install an Ingress by default, to access the Web UI we have to port-forward to the argocd-server service:
 ```bash
 $ kubectl port-forward svc/argo-cd-argocd-server 8080:443
