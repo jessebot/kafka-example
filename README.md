@@ -2,19 +2,24 @@
 Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart :)
 
 If you'd like, you can Learn more about the following before proceeding:
-- Kubernetes (THE CLUSTER)
-- KIND (Spins up mini k8s cluster)
-- ArgoCD (Continuous Delivery for k8s apps)
-- Kafka (Handles real-time data feeds)
+- [brew](https://brew.sh/) - Missing package manager for Mac (also supports Linux)
+- [docker](https://www.docker.com/get-started/) - Containerization tooling :)
+- [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](memes/peridot.png) we use to scale containers :3
+- [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster
+- [helm](https://helm.sh/docs/intro/quickstart/) - This is a package manager for kube apps (mostly a bunch of k8s yamls)
+- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps
+- [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
 
 ## Installation of quick k8s cluster (KIND)
-You can install this (kind)[https://kind.sigs.k8s.io/] with (brew)[https://brew.sh/] on Mac or Linux :D
+You can install docker, kubernetes, kind, and helm with brew on Mac or Linux :D Check the links in the above section to learn more.
 
 ```bash
+brew install docker
+brew install kubernetes
+brew install kubectl
 brew install kind
+brew install helm
 ```
-
-*Note: You'll need (docker)[https://www.docker.com/get-started/] already installed and running.*
 
 Then you can create a quick small cluster with the below command. It will create a cluster called kind, and it will have one node, but it will be fast, like no more than a few minutes. 
 
@@ -55,7 +60,10 @@ kube-system          Active   27m
 local-path-storage   Active   27m
 ```
 
-Now that we've verified we have a local k8s cluster, let's get argo up and running! First we'll need helm (`brew install helm`), which is like a package manager for k8s. Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. Then you can run the following helm commands:
+Now that we've verified we have a local k8s cluster, let's get argo up and running!
+
+## Installing ArgoCD
+First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. Then you can run the following helm commands:
 
 ```bash
 $ helm repo add argo https://argoproj.github.io/argo-helm
@@ -82,20 +90,19 @@ REVISION: 1
 TEST SUITE: None
 ```
 
+(We do wonder about that `manifest_sorter.go` :thinking: ... but we choose to ignore it for RIGHT now :shrug:)
+
 Then you should have ArgoCD on your Kind cluster :D So, from here, we can check out the Argo frontend...
 
 You may think the next thing to do is:
 The Helm chart doesn’t install an Ingress by default, to access the Web UI we have to port-forward to the argocd-server service:
-
 ```bash
 $ kubectl port-forward svc/argo-cd-argocd-server 8080:443
 Forwarding from 127.0.0.1:8080 -> 8080
 Forwarding from [::1]:8080 -> 8080
 Handling connection for 8080
 ```
-We can then visit http://localhost:8080 to access it.
-
-*BUT YOU WOULD BE WRONG*
+We can then visit http://localhost:8080 to acces-*BUT YOU WOULD BE WRONG*
 
 Because as soon as you visit http://localhost:8080 your terminal will say:
 
