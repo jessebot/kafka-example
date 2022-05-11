@@ -206,13 +206,14 @@ Handling connection for 8080
 Handling connection for 8080
 ```
 
-AND... SUCCESS, we now get this in the browser:
-<img src="media/argo_screenshot_2022-05-11_15.36.20.png" alt="Screenshot of the self-hosted-k8s ArgoCD login page in firefox"/>
+SUCCESS, we now get this in the browser:
+
+<img src="media/argo_screenshot_2022-05-11_15.36.20.png" alt="Screenshot of the self-hosted-k8s ArgoCD login page in firefox" width="500"/>
 
 The default username is admin. The password is auto-generated and we can get it with:
 ```bash
 kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-## BUT WHAT ABOUT KAFKA?!
+## Getting Started with Kafka
 Glad you asked, I'm working on it. First stop is helm B)
