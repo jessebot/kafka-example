@@ -14,13 +14,9 @@ If you'd like, you can Learn more about the following before proceeding:
 You can install docker, kubernetes, kind, and helm with brew on Mac or Linux :D Check the links in the above section to learn more.
 
 ### brew (On MacOS/Linux)
+Make sure you have the `Brewfile` from this repo and then run: 
 ```bash
-brew install docker
-brew install kubernetes
-brew install kubectl
-brew install kind
-brew install helm
-brew install argocd
+brew bundle install Brewfile
 ```
 
 ### apt (On Debian/Ubuntu)
@@ -249,4 +245,4 @@ After it's created, since it's going to be public, we can connect to the repo us
 Will fill this in later
 
 ### CLI
-
+Make sure you have argocd cli installed
