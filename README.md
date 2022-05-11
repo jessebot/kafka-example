@@ -15,8 +15,7 @@ If you'd like, you can Learn more about the following before proceeding:
 ## Installation of quick k8s cluster (KIND)
 You can install docker, kubernetes, kind, and helm with brew on Mac or Linux :D Check the links in the above section to learn more.
 
-Brew:
-
+brew (On MacOS/Linux):
 ```bash
 brew install docker
 brew install kubernetes
@@ -24,9 +23,9 @@ brew install kubectl
 brew install kind
 brew install helm
 ```
-Apt/Ubuntu:
 
 
+apt (On Debian/Ubuntu):
 ```zsh
 # install docker/kubectl deps
 sudo apt-get -y install \
@@ -91,7 +90,7 @@ Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/qui
 
 *Note: make sure you have kubectl installed, and you can install that with brew as well*
 
-You'll want to follow their advice and  get some important info with:
+You'll want to follow kind advice and get some important info with, as well as verify the cluster is good to go:
 ``` bash
 $ kubectl cluster-info --context kind-kind
 Kubernetes control plane is running at https://127.0.0.1:64067
@@ -109,7 +108,7 @@ kube-system          Active   27m
 local-path-storage   Active   27m
 ```
 
-Now that we've verified we have a local k8s cluster, let's get argo up and running!
+Now that we've verified we have a local k8s cluster, let's get Argo up and running!
 
 ## Installing ArgoCD
 
@@ -193,7 +192,7 @@ $ helm uninstall argo-cd
 release "argo-cd" uninstalled
 ```
 
-### Resume here after detour
+### Resume here after error detour
 
 Now, for the perfect installation of our dreams:
 ```bash
@@ -207,8 +206,9 @@ TEST SUITE: None
 ```
 :chefs-kiss:
 
-# When ArgoCD finally works...
-Try this:
+# When ArgoCD finally installs...
+
+You'll need to test out the front end, but before you can do that, you need to do some port forwarding:
 ```bash
 $ kubectl port-forward svc/argo-cd-argocd-server 8080:443
 Forwarding from 127.0.0.1:8080 -> 8080
@@ -220,16 +220,12 @@ Handling connection for 8080
 ```
 
 AND... SUCCESS, we now get this in the browser:
-<img src="media/argo_screenshot_2022-05-11_15.36.20.png)" alt="Screenshot of the self-hosted-k8s ArgoCD login page in firefox"/>
+<img src="media/argo_screenshot_2022-05-11_15.36.20.png" alt="Screenshot of the self-hosted-k8s ArgoCD login page in firefox"/>
 
 The default username is admin. The password is auto-generated and we can get it with:
 ```bash
 kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-Special thanks to:
-- This article helped a bit, but was out of date, so there's quite a few corrections in my readme here: https://www.arthurkoziel.com/setting-up-argocd-with-helm/
-
 ## BUT WHAT ABOUT KAFKA?!
-
 Glad you asked, I'm working on it. First stop is helm B)
