@@ -1,4 +1,4 @@
-# Kubernetes, GitOps, and Kafka, OH MY!
+# Kubernetes, ArgoCD, and Kafka
 I'm writing this in mid-May 2022, and I make no promises for people trying to ressurect the past, or proceed in the future. If it's not mid-May 2022, ymmv.
 
 Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart :)
