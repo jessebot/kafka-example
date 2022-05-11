@@ -1,5 +1,11 @@
-# Kubeneters, GitOps, and Kafka, OH MY!
-Just a quick example of how to set up a test k8s environment, using ArgoCD to test Kafka :)
+# Kubernetes, GitOps, and Kafka, OH MY!
+Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart :)
+
+If you'd like, you can Learn more about the following before proceeding:
+- Kubernetes (THE CLUSTER)
+- KIND (Spins up mini k8s cluster)
+- ArgoCD (Continuous Delivery for k8s apps)
+- Kafka (Handles real-time data feeds)
 
 ## Installation of quick k8s cluster (KIND)
 You can install this (kind)[https://kind.sigs.k8s.io/] with (brew)[https://brew.sh/] on Mac or Linux :D
@@ -64,7 +70,19 @@ Downloading argo-cd from repo https://argoproj.github.io/argo-helm
 Deleting outdated charts
 ```
 
-Then you should have ArgoCD on your Kind cluster :D
+And finally, here's the actual installation:
+```bash
+manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
+manifest_sorter.go:192: info: skipping unknown hook: "crd-install"
+NAME: argo-cd
+LAST DEPLOYED: Wed May 11 10:53:55 2022
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+```
+
+Then you should have ArgoCD on your Kind cluster :D So, from here, we can check out the Argo frontend...
 
 Special thanks to:
 - https://www.arthurkoziel.com/setting-up-argocd-with-helm/
