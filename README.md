@@ -7,7 +7,7 @@ If you'd like, you can Learn more about the following before proceeding:
 - [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster
 - [helm](https://helm.sh/docs/intro/quickstart/) - This is a package manager for kube apps (mostly a bunch of k8s yamls)
-- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps (4.6.0) (We'll install this on the cluster, but you'll need the CLI tool locally)
+- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s apps (4.6.0) (We'll install this on the cluster, but you'll need the [CLI tool](https://argo-cd.readthedocs.io/en/stable/cli_installation/) locally)
 - [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale (We'll install this together)
 
 ## Installation of quick k8s cluster (KIND)
@@ -57,10 +57,14 @@ groupadd docker
 sudo usermod -aG docker $USER
 newgrp docker
 
-#install KIND
+# install KIND
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.13.0/kind-linux-amd64
 chmod +x ./kind
-mv ./kind /usr/bin/kind
+sudo mv ./kind /usr/bin/kind
+
+# install ArgoCD CLI
+sudo curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+sudo chmod +x /usr/local/bin/argocd
 ```
 
 Then you can create a quick small cluster with the below command. It will create a cluster called kind, and it will have one node, but it will be fast, like no more than a few minutes. 
@@ -248,6 +252,12 @@ Will fill this in later
 You'll need to make sure you have your argo CD server address set with:
 
 ```bash
+# create the default config location:
+$ mkdir -p ~/.config/argocd/config
+
+# missing argo config set up ???
+
+# then you can run the following
 $ argocd ???
 ```
 
