@@ -245,4 +245,18 @@ After it's created, since it's going to be public, we can connect to the repo us
 Will fill this in later
 
 ### CLI
-Make sure you have argocd cli installed
+You'll need to make sure you have your argo CD server address set with:
+
+```bash
+$ argocd ???
+```
+
+Make sure you have argocd cli installed, and then you can run:
+```bash
+$ argocd repo add git@github.com:jessebot/argo-kafka-example/charts/kafka --insecure-ignore-host-key --ssh-private-key-path ~/id_rsa_argo_deploy
+```
+
+If you don't have the argoCD server address already specified you'll get this:
+```bash
+FATA[0000] Argo CD server address unspecified
+```
