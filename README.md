@@ -209,9 +209,26 @@ SUCCESS, we now get this in the browser:
 
 <img src="media/argo_screenshot_2022-05-11_15.36.20.png" alt="Screenshot of the self-hosted-k8s ArgoCD login page in firefox" width="500"/>
 
-The default username is admin. The password is auto-generated and we can get it with:
+You can now login with the default username, `admin`, and auto-generated password from this k8s secret:
 ```bash
 kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+### CLI
+You'll need to make sure you have your argo CD server address set with:
+```bash
+# create the default config location:
+$ mkdir -p ~/.config/argocd/config
+
+# missing argo config set up ???
+
+# then you can run the following
+$ argocd ???
+```
+
+If you don't have the argoCD server address already specified you'll get this:
+```bash
+FATA[0000] Argo CD server address unspecified
 ```
 
 ## Getting Started with Kafka
@@ -241,32 +258,12 @@ For sake of simplicity and future automation, you can use the [github cli](https
 $ gh repo create argo-and-kafka-example
 ```
 
-After it's created, since it's going to be public, we can connect to the repo using HTTPS, but if you plan on doing this with a private repo, you'll need to generate an SSH key pair to use as a deploy key in Github.
-
 ## Add kafka to ArgoCD
 
-### GUI
-Will fill this in later
+Create an SSH key pair, and then paste the public key into the deploy key section of your GitHub repo.
 
-### CLI
-You'll need to make sure you have your argo CD server address set with:
-
-```bash
-# create the default config location:
-$ mkdir -p ~/.config/argocd/config
-
-# missing argo config set up ???
-
-# then you can run the following
-$ argocd ???
-```
-
-Make sure you have argocd cli installed, and then you can run:
+Make sure you have argocd cli installed, and then you can run (with `~/id_rsa_argo_deploy` being your newly created SSH key pair from the previous step):
 ```bash
 $ argocd repo add git@github.com:jessebot/argo-kafka-example/charts/kafka --insecure-ignore-host-key --ssh-private-key-path ~/id_rsa_argo_deploy
 ```
 
-If you don't have the argoCD server address already specified you'll get this:
-```bash
-FATA[0000] Argo CD server address unspecified
-```
