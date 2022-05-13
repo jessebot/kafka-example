@@ -253,6 +253,13 @@ users:
   name: port-forward
 ```
 
+If you dont use the flags "--port-forward" and "--plaintext" you'll 
+probably get this error:
+
+```bash
+FATA[0001] dial tcp 127.0.0.1:8080: connect: connection refused 
+```
+
 If you don't have the argoCD server address already specified you'll get this:
 ```bash
 FATA[0000] Argo CD server address unspecified
