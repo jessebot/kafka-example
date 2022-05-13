@@ -215,6 +215,15 @@ kubectl get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | 
 ```
 
 ### CLI
+First you should generate cli completion for your shell of choice. In my case, it was BASH:
+```bash
+$ argocd completion bash > ~/.bashrc_argocd
+$ source ~/.bashrc_argocd
+
+# need to port forward, but we want this in the background
+$ kubectl port-forward svc/argo-cd-argocd-server 8080:443 &
+```
+
 You'll need to make sure you have your argo CD server address set with:
 ```bash
 # create the default config location:
@@ -223,8 +232,9 @@ $ mkdir -p ~/.config/argocd/config
 # missing argo config set up ???
 
 # then you can run the following
-$ argocd ???
+$ argocd login localhost:8080 --username admin --password $yourpassword
 ```
+#### WARNING: the above command will fail right now
 
 If you don't have the argoCD server address already specified you'll get this:
 ```bash
@@ -266,4 +276,3 @@ Make sure you have argocd cli installed, and then you can run (with `~/id_rsa_ar
 ```bash
 $ argocd repo add git@github.com:jessebot/argo-kafka-example/charts/kafka --insecure-ignore-host-key --ssh-private-key-path ~/id_rsa_argo_deploy
 ```
-
