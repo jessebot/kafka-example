@@ -287,9 +287,11 @@ Deleting outdated charts
 That should put you to the point where you can now push this repo, and have argo sync it.
 
 ## Prepare kafka repo
-For sake of simplicity and future automation, you can use the [github cli](https://cli.github.com/) to create a repo:
+For sake of simplicity and future automation, you can use the [github cli](https://cli.github.com/) to create a repo.
+You may need to specify --private, --public, or --internal flag when creating it. 
 ```
-$ gh repo create argo-and-kafka-example
+$ gh repo create argo-and-kafka-example --private 
+✓ Created repository some_user/argo-and-kafka-example on GitHub
 ```
 
 ## Add kafka to ArgoCD
