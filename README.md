@@ -224,17 +224,34 @@ $ source ~/.bashrc_argocd
 $ kubectl port-forward svc/argo-cd-argocd-server 8080:443 &
 ```
 
-You'll need to make sure you have your argo CD server address set with:
+Authenticate to your forwarded argo sessions via username
 ```bash
-# create the default config location:
-$ mkdir -p ~/.config/argocd/config
-
-# missing argo config set up ???
-
-# then you can run the following
-$ argocd login localhost:8080 --username admin --password $yourpassword
+argocd login --port-forward --plaintext
+Username: admin
+Password: 
+'admin:login' logged in successfully
+Context 'port-forward' updated
 ```
-#### WARNING: the above command will fail right now
+
+This will auto-generate a config-file at ~/.config/argocd/config
+
+Example ~/.config/argocd/config:
+
+```bash
+vmadmin@ubuntu:~/argo-kafka-example$ cat /home/vmadmin/.config/argocd/config
+contexts:
+- name: port-forward
+  server: port-forward
+  user: port-forward
+current-context: port-forward
+servers:
+- grpc-web-root-path: ""
+  plain-text: true
+  server: port-forward
+users:
+- auth-token: < SOME_TOKEN >
+  name: port-forward
+```
 
 If you don't have the argoCD server address already specified you'll get this:
 ```bash
