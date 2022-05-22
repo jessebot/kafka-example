@@ -1,3 +1,6 @@
+#!/usr/bin/env
+# By Max and Jesse
+
 # install docker/kubectl deps
 sudo apt-get -y install \
 	apt-transport-https \
