@@ -16,7 +16,7 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster locally
 
 ### Secrets Management
-[Vault]() - Open source secret management from Hashicorp
+[Vault](https://github.com/hashicorp/vault) - Open source secret management from Hashicorp
 
 ### Continuous Delivery
 - [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s, from within k8s
@@ -190,12 +190,18 @@ TEST SUITE: None
 ## Argo via the GUI
 You'll need to test out the front end, but before you can do that, you need to do some port forwarding:
 ```bash
+# Do this one if you didn't install ArgoCD with Vault
 $ kubectl port-forward svc/argo-cd-argocd-server 8080:443
 Forwarding from 127.0.0.1:8080 -> 8080
 Forwarding from [::1]:8080 -> 8080
 Handling connection for 8080
-Handling connection for 8080
-Handling connection for 8080
+```
+or
+```bash
+# Do this if you installed ArgoCD WITH Vault
+$ kubectl port-forward svc/argocd-server 8080:443
+Forwarding from 127.0.0.1:8080 -> 8080
+Forwarding from [::1]:8080 -> 8080
 Handling connection for 8080
 ```
 
