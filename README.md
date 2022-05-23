@@ -23,7 +23,7 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
 [Kustomize](https://kustomize.io/) - kubernetes native config managment to install argo with vault
 
 ## Kafka
-- [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
+[Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
 Kafka on k8s is such a journey...
 
 # Installation of quick k8s cluster (KIND)
