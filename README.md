@@ -16,10 +16,10 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
   - [Kustomize](https://kustomize.io/) - kubernetes native config managment to install argo with vault
 - [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
 
-# Installation for Pre-Reqs
+## Installation for Pre-Reqs
 To get your enviornment set up, check out this [repo](https://github.com/jessebot/argo-vault-example) to learn how to install kind and ArgoCD :)
 
-## Getting Started with Kafka
+# Getting Started with Kafka
 Kafka will also be installed via helm, but this time with Argo. You'll want to have a git repo for kafka for this next part. In this case, I'm using this repo, but only to keep this managable as a tutorial.
 
 Add the Bitnami helm repo:
