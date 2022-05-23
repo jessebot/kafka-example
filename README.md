@@ -6,28 +6,18 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
 - [brew](https://brew.sh/) - Missing package manager for Mac (also supports Linux)
   - Also got some scripts for Debian distros
 - [helm2](https://helm.sh/docs/intro/quickstart/) installs k8s apps (mostly a bunch of k8s yamls)
-
-## Container Orchestration
 - [Docker](https://www.docker.com/get-started/) - for the containers
 - [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
   - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster locally
-
-## Secrets Management
-[Vault](https://github.com/hashicorp/vault) - Open source secret management from Hashicorp
-
-## Continuous Delivery
-[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s, from within k8s
+- [Vault](https://github.com/hashicorp/vault) - Open source secret management from Hashicorp
+- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s, from within k8s
 - [Argo CLI tool](https://argo-cd.readthedocs.io/en/stable/cli_installation/) - this will let you use ArgoCD without the web interface
 - [ArgoCD Vault Plugin](https://argocd-vault-plugin.readthedocs.io/en/stable/installation/) - ArgoCD with Vault
-### Config Management (K8s)
-[Kustomize](https://kustomize.io/) - kubernetes native config managment to install argo with vault
-
-## Kafka
-[Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
-Kafka on k8s is such a journey...
+  - [Kustomize](https://kustomize.io/) - kubernetes native config managment to install argo with vault
+- [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
 
 # Installation for Pre-Reqs
-To get your enviornment set up, check out this [repo]() to learn how to install kind and ArgoCD :)
+To get your enviornment set up, check out this [repo](https://github.com/jessebot/argo-vault-example) to learn how to install kind and ArgoCD :)
 
 ## Getting Started with Kafka
 Kafka will also be installed via helm, but this time with Argo. You'll want to have a git repo for kafka for this next part. In this case, I'm using this repo, but only to keep this managable as a tutorial.
