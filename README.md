@@ -8,11 +8,9 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
 - [helm2](https://helm.sh/docs/intro/quickstart/) installs k8s apps (mostly a bunch of k8s yamls)
 
 ## Container Orchestration
-[Docker](https://www.docker.com/get-started/) - for the containers
-
-### Orchestration
-[Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
-- [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster locally
+- [Docker](https://www.docker.com/get-started/) - for the containers
+- [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
+  - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster locally
 
 ## Secrets Management
 [Vault](https://github.com/hashicorp/vault) - Open source secret management from Hashicorp
