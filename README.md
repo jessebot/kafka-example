@@ -1,44 +1,41 @@
 # Kubernetes, ArgoCD, Vault, and Kafka
 Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart. Uses Hashicorp's Vault for secret storage :)
 
-## Tech stack and Dependencies
-### Package Managers
+# Tech stack and Dependencies
+## Package Managers
 - [brew](https://brew.sh/) - Missing package manager for Mac (also supports Linux)
   - Also got some scripts for Debian distros
 - [helm2](https://helm.sh/docs/intro/quickstart/) installs k8s apps (mostly a bunch of k8s yamls)
 
-### Container Orchestration
-#### Container
-[Docker](https://www.docker.com/get-started/)
+## Container Orchestration
+[Docker](https://www.docker.com/get-started/) - for the containers
 
-#### Orchestration
+### Orchestration
 [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster locally
 
-### Secrets Management
+## Secrets Management
 [Vault](https://github.com/hashicorp/vault) - Open source secret management from Hashicorp
 
-### Continuous Delivery
+## Continuous Delivery
 [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s, from within k8s
 - [Argo CLI tool](https://argo-cd.readthedocs.io/en/stable/cli_installation/) - this will let you use ArgoCD without the web interface
 - [ArgoCD Vault Plugin](https://argocd-vault-plugin.readthedocs.io/en/stable/installation/) - ArgoCD with Vault
-#### Config Management (K8s)
+### Config Management (K8s)
 [Kustomize](https://kustomize.io/) - kubernetes native config managment to install argo with vault
 
-### Kafka
+## Kafka
 - [Kafka](https://kafka.apache.org/intro) - Handles real-time data feeds at scale
 Kafka on k8s is such a journey...
 
-## Installation of quick k8s cluster (KIND)
-You can install docker, kubernetes, kind, and helm with brew on Mac or Linux :D Check the links in the above section to learn more.
-
-### brew (On MacOS/Linux)
+# Installation of quick k8s cluster (KIND)
+## brew (On MacOS/Linux)
 Make sure you have the `Brewfile` from this repo and then run: 
 ```bash
 brew bundle install Brewfile
 ```
 
-### apt (On Debian distros)
+## apt (On Debian distros)
 This goes through the whole process with apt
 ```bash
 ./apt_dep_installation.sh
@@ -85,7 +82,7 @@ local-path-storage   Active   27m
 
 Now that we've verified we have a local k8s cluster, let's get Argo up and running!
 
-## Installing ArgoCD with Vault
+# Installing ArgoCD with Vault
 ## Kustomize Installation
 ```bash
 # Create a Directory to Store the yamls
@@ -103,7 +100,7 @@ cd ..
 k apply -k kustomize
 ```
 
-### Helm Installation without Vault
+## Helm Installation without Vault
 First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. You can update your `version` parameter in `charts/argo/Chart.yaml` to the `version` param you see in [this repo](https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/Chart.yaml), at whatever time in the future that you're working on this. If you don't verify that version you will end up like me, half way down this article... :facepalm:
 
 Then you can run the following helm commands:
