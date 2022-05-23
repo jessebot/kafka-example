@@ -1,7 +1,0 @@
-brew "sl"
-brew "docker"
-brew "kubernetes"
-brew "kubectl"
-brew "kind"
-brew "helm"
-brew "argocd"
