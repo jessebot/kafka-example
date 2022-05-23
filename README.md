@@ -9,19 +9,19 @@ Just a quick example of how to set up a test Kuberentes (k8s) environment with K
 
 ### Container Orchestration
 #### Container
-[docker](https://www.docker.com/get-started/)
+[Docker](https://www.docker.com/get-started/)
 
 #### Orchestration
-- [Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
+[Kubernetes](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/) - [THE CLUSTER](media/peridot.png) we use to scale containers :3
 - [KIND](https://kind.sigs.k8s.io/) - Tool to spin up mini k8s cluster locally
 
 ### Secrets Management
 [Vault](https://github.com/hashicorp/vault) - Open source secret management from Hashicorp
 
 ### Continuous Delivery
-- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s, from within k8s
-  - [Argo CLI tool](https://argo-cd.readthedocs.io/en/stable/cli_installation/) - this will let you use ArgoCD without the web interface
-  - [ArgoCD Vault Plugin](https://argocd-vault-plugin.readthedocs.io/en/stable/installation/) - ArgoCD with Vault
+[ArgoCD](https://argo-cd.readthedocs.io/en/stable/) - Continuous Delivery for k8s, from within k8s
+- [Argo CLI tool](https://argo-cd.readthedocs.io/en/stable/cli_installation/) - this will let you use ArgoCD without the web interface
+- [ArgoCD Vault Plugin](https://argocd-vault-plugin.readthedocs.io/en/stable/installation/) - ArgoCD with Vault
 #### Config Management (K8s)
 [Kustomize](https://kustomize.io/) - kubernetes native config managment to install argo with vault
 
