@@ -85,19 +85,25 @@ local-path-storage   Active   27m
 
 Now that we've verified we have a local k8s cluster, let's get Argo up and running!
 
-## Installing ArgoCD
+## Installing ArgoCD with Vault
 ## Kustomize Installation
 ```bash
 # Create a Directory to Store the yamls
 mkdir kustomize && cd kustomize
 
-# Download all the Relevant
+# Download all the graciously provided - can also use curl
 wget https://raw.githubusercontent.com/argoproj-labs/argocd-vault-plugin/main/manifests/argocd-cm.yaml
 wget https://raw.githubusercontent.com/argoproj-labs/argocd-vault-plugin/main/manifests/argocd-repo-server-deploy.yaml
 wget https://raw.githubusercontent.com/argoproj-labs/argocd-vault-plugin/main/manifests/kustomization.yaml
+
+# go up one dir
+cd ..
+
+# apply the kustomize files
+k apply -k kustomize
 ```
 
-### Helm Installation
+### Helm Installation without Vault
 First we'll need helm (`brew install helm`, if you haven't already). Then, if you want this to be repeatable, you can clone this repo because you'll need to create the `Chart.yaml` and `values.yaml` in `charts/argo`. You can update your `version` parameter in `charts/argo/Chart.yaml` to the `version` param you see in [this repo](https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/Chart.yaml), at whatever time in the future that you're working on this. If you don't verify that version you will end up like me, half way down this article... :facepalm:
 
 Then you can run the following helm commands:
