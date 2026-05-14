@@ -1,3 +1,8 @@
+# Notice of migration
+
+This repo now lives at:
+https://codeberg.org/jessebot/kafka-k8s-example
+
 # Let's play with Kafka
 Just a quick example of how to set up a test Kuberentes (k8s) environment with KIND, and then using ArgoCD as our Continuous Delivery to test deploy a Kafka helm chart. Uses Hashicorp's Vault for secret storage :)
 
